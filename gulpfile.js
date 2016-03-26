@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var inject = require('gulp-inject');
 var csso = require('gulp-csso');
+var fontmin = require('gulp-fontmin');
+var ttf2woff2 = require('gulp-ttf2woff2');
 
 gulp.task('styles', function(){
 
@@ -22,5 +24,10 @@ gulp.task('styles', function(){
   	.pipe(inject(injectmaterialize, injectAppOptions))
     .pipe(sass())
     .pipe(csso())
-    .pipe(gulp.dest('public_html/css'))
+    .pipe(gulp.dest('public_html/css'));
+
+    gulp.src('sources/materialize-src/font/roboto/*.ttf')
+    .pipe(ttf2woff2())
+    .pipe(fontmin())
+    .pipe(gulp.dest('public_html/font/roboto'));
 });
