@@ -37,7 +37,7 @@ gulp.task('styles', function(){
     .pipe(gulp.dest('public_html/css'));
 });
 
-gulp.task('styles', function(){
+gulp.task('font', function(){
 	 gulp.src('sources/materialize-src/font/roboto/*.ttf')
     .pipe(ttf2woff2())
     .pipe(fontmin())
