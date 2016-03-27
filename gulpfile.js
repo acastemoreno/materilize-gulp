@@ -9,24 +9,36 @@ gulp.task('styles', function(){
 
 	var injectmaterialize = gulp.src('sources/materialize-src/sass/materialize.scss', {read: false});
 
+	var injectscss = gulp.src('scss/styles/*.scss', {read: false});
+
 	function transformFilepath(filepath) {
 	    return '@import "' + filepath + '";';
 	}
 	 
-	var injectAppOptions = {
+	var injectMaterializeOptions = {
 	    transform: transformFilepath,
 	    starttag: '// inject:materialize',
 	    endtag: '// endinject',
 	    addRootSlash: false
 	};
 
+	var injectAppOptions = {
+	    transform: transformFilepath,
+	    starttag: '// inject:styles',
+	    endtag: '// endinject',
+	    addRootSlash: false
+	};
+
   	gulp.src('scss/main.scss')
-  	.pipe(inject(injectmaterialize, injectAppOptions))
+  	.pipe(inject(injectmaterialize, injectMaterializeOptions))
+  	.pipe(inject(injectscss, injectAppOptions))
     .pipe(sass())
     .pipe(csso())
     .pipe(gulp.dest('public_html/css'));
+});
 
-    gulp.src('sources/materialize-src/font/roboto/*.ttf')
+gulp.task('styles', function(){
+	 gulp.src('sources/materialize-src/font/roboto/*.ttf')
     .pipe(ttf2woff2())
     .pipe(fontmin())
     .pipe(gulp.dest('public_html/font/roboto'));
