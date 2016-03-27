@@ -33,7 +33,6 @@ gulp.task('styles', function(){
   	.pipe(inject(injectmaterialize, injectMaterializeOptions))
   	.pipe(inject(injectscss, injectAppOptions))
     .pipe(sass())
-    .pipe(csso())
     .pipe(gulp.dest('public_html/css'));
 });
 
